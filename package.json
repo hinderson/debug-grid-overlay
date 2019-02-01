@@ -1,0 +1,19 @@
+{
+  "name": "debug-grid-overlay",
+  "version": "1.0.0",
+  "description": "Display your design's grid as an overlay on top of your web site or app to debug positioning of elements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hinderson/debug-grid-overlay.git"
+  },
+  "author": "Mattias Hinderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hinderson/debug-grid-overlay/issues"
+  },
+  "homepage": "https://github.com/hinderson/debug-grid-overlay#readme"
+}
