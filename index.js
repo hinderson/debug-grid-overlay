@@ -1,14 +1,34 @@
 const node = str => new DOMParser().parseFromString(str, 'text/html').body.firstChild;
 
-export default function DebugGrid({
+function EventEmitter() {
+	const topic = {};
+
+	return {
+		on(name, listener) {
+			if (!topic[name]) {
+				topic[name] = { queue: [] };
+			}
+			topic[name].queue.push(listener) - 1;
+		},
+		emit(name, data) {
+			if (!topic[name] || topic[name].queue.length === 0) {
+				return;
+			}
+			topic[name].queue.forEach(callback => callback(data));
+		},
+	};
+}
+
+export default function debugGrid({
 	columns = 12,
-	maxWidth = '1200px',
+	maxWidth = null,
 	marginsWidth = null,
 	gutterWidth = '16px',
 	columnWidth = '1fr',
 	verticalRhythm = '20px',
 	keyCode = 71, // Lowercase "g"
 } = {}) {
+	const { emit, on } = new EventEmitter();
 
 	const grid = 'g' + Math.random().toString(36).substr(2, 9);
 	const gridInner = 'i' + Math.random().toString(36).substr(2, 9);
@@ -32,10 +52,10 @@ export default function DebugGrid({
 			background-color: rgba(14, 109, 14, 0.1);
 			margin-left: auto;
 			margin-right: auto;
+			box-sizing: content-box;
 			${maxWidth ? `max-width: ${maxWidth};` : ''}
 			${marginsWidth ? `padding-left: ${marginsWidth};` : ''}
 			${marginsWidth ? `padding-right: ${marginsWidth};` : ''}
-			box-sizing: content-box;
 		}
 
 		.${gridInner}::before {
@@ -83,9 +103,11 @@ export default function DebugGrid({
 		if (document.body.contains(overlay)) {
 			document.head.removeChild(styleTag);
 			document.body.removeChild(overlay);
+			emit('toggled', false);
 		} else {
 			document.head.insertAdjacentElement('beforeend', styleTag);
 			document.body.append(overlay);
+			emit('toggled', true);
 		}
 	}
 
@@ -95,5 +117,5 @@ export default function DebugGrid({
 		}
 	});
 
-	return { toggle };
+	return { toggle, on };
 }

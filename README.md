@@ -5,9 +5,9 @@
 ## Usage
 Import it as a ES6 module and initialize it:
 ```
-import DebugGridOverlay from 'DebugGridOverlay';
+import debugGridOverlay from 'debug-grid-overlay';
 
-DebugGridOverlay({
+debugGridOverlay({
     columns: 24,
     columnWidth: '1fr',
     gutterWidth: '16px',
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 
 ## Options
 ```
-const debugGrid = DebugGridOverlay({
+const debugGrid = debugGridOverlay({
     columns: 12,
     // The amount of columns in your grid
     // Default: 12
@@ -51,5 +51,20 @@ const debugGrid = DebugGridOverlay({
 	keyCode: 71,
     // Keyboard key code that triggers the overlay
     // Default: 71 (lowercase 'g')
+});
+```
+
+
+## API
+### Events
+```
+const debugGrid = debugGridOverlay();
+
+debugGrid.on('toggled', (visible) => {
+	if (visible) {
+		console.log('Grid has been toggled on');
+	} else {
+		console.log('Grid has been toggled off');
+	}
 });
 ```
