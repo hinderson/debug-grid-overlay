@@ -2,19 +2,18 @@ const node = str => new DOMParser().parseFromString(str, 'text/html').body.first
 
 export default function DebugGrid({
 	columns = 12,
-	maxWidth = '1344px',
-	marginWidth = '40px',
+	maxWidth = '1200px',
+	marginsWidth = null,
 	gutterWidth = '16px',
 	columnWidth = '1fr',
 	verticalRhythm = '20px',
+	keyCode = 71, // Lowercase "g"
 } = {}) {
 
 	const grid = 'g' + Math.random().toString(36).substr(2, 9);
 	const gridInner = 'i' + Math.random().toString(36).substr(2, 9);
 
-	const styleTag = document.createElement('style');
-	styleTag.id = 'debug-grid-overlay';
-	styleTag.innerHTML = `
+	const css = `
 		.${grid} {
 			position: absolute;
 			top: 0;
@@ -27,15 +26,15 @@ export default function DebugGrid({
 
 		.${gridInner} {
 			display: grid;
-			grid-template-columns: repeat(24, ${columnWidth});
+			grid-template-columns: repeat(${columns}, ${columnWidth});
 			column-gap: ${gutterWidth};
 			height: 100%;
 			background-color: rgba(14, 109, 14, 0.1);
 			margin-left: auto;
 			margin-right: auto;
 			${maxWidth ? `max-width: ${maxWidth};` : ''}
-			${marginWidth ? `padding-left: ${marginWidth};` : ''}
-			${marginWidth ? `padding-right: ${marginWidth};` : ''}
+			${marginsWidth ? `padding-left: ${marginsWidth};` : ''}
+			${marginsWidth ? `padding-right: ${marginsWidth};` : ''}
 			box-sizing: content-box;
 		}
 
@@ -66,7 +65,11 @@ export default function DebugGrid({
 			margin-top: 0;
 			background-color: rgba(255, 192, 203, 0.2);
 		}
-	`.replace(/\n/g, '').replace(/\s\s+/g, ' ');
+	`;
+
+	const styleTag = document.createElement('style');
+	styleTag.id = 'debug-grid-overlay';
+	styleTag.innerHTML = css.replace(/\n/g, '').replace(/\s\s+/g, ' ');
 
 	const overlay = node(`
 		<div class="${grid}">
@@ -87,7 +90,7 @@ export default function DebugGrid({
 	}
 
 	window.addEventListener('keydown', e => {
-		if (event.keyCode === 71) { // Lowercase "g"
+		if (event.keyCode === keyCode) {
 			toggle();
 		}
 	});
