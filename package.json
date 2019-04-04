@@ -1,6 +1,6 @@
 {
 	"name": "debug-grid-overlay",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Display your design's grid as an overlay on top of your web site or app to debug positioning of elements.",
 	"main": "dist/index.js",
 	"repository": {
