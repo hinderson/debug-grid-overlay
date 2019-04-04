@@ -26,31 +26,31 @@ if (process.env.NODE_ENV === 'development') {
 ## Options
 ```
 const debugGrid = debugGridOverlay({
-    columns: 12,
-    // The amount of columns in your grid
-    // Default: 12
+	columns: 12,
+	// The amount of columns in your grid
+	// Default: 12
 
-    columnWidth: '1fr',
-    // Default: 1fr
+	columnWidth: '1fr',
+	// Default: 1fr
 
 	gutterWidth: '16px',
-    // Default: 16px
+	// Default: 16px
 
 	maxWidth: '1344px',
-    // Sets a max width for your grid
-    // Default: null,
+	// Sets a max width for your grid
+	// Default: null,
 
 	marginsWidth: '40px',
-    // Sets outer document margins for your grid
-    // Default: null
+	// Sets outer document margins for your grid
+	// Default: null
 
 	verticalRhythm: '20px',
-    // Useful for seeing if your design conforms to the vertical rhythm
-    // Default: 20px
+	// Useful for seeing if your design conforms to the vertical rhythm
+	// Default: 20px
 
 	keyCode: 71,
-    // Keyboard key code that triggers the overlay
-    // Default: 71 (lowercase 'g')
+	// Keyboard key code that triggers the overlay
+	// Default: 71 (lowercase 'g')
 });
 ```
 
