@@ -45,7 +45,7 @@ const debugGrid = debugGridOverlay({
     // Default: null
 
 	verticalRhythm: '20px',
-    // Useful for seeing if your design confirms to the vertical rhythm
+    // Useful for seeing if your design conforms to the vertical rhythm
     // Default: 20px
 
 	keyCode: 71,

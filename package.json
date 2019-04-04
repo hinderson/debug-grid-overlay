@@ -1,22 +1,65 @@
 {
-  "name": "debug-grid-overlay",
-  "version": "1.0.0",
-  "description": "Display your design's grid as an overlay on top of your web site or app to debug positioning of elements.",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hinderson/debug-grid-overlay.git"
-  },
-  "keywords": [
-    "javascript",
-    "grid",
-    "css",
-    "debug"
-  ],
-  "author": "Mattias Hinderson",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hinderson/debug-grid-overlay/issues"
-  },
-  "homepage": "https://github.com/hinderson/debug-grid-overlay#readme"
+	"name": "debug-grid-overlay",
+	"version": "1.0.2",
+	"description": "Display your design's grid as an overlay on top of your web site or app to debug positioning of elements.",
+	"main": "dist/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hinderson/debug-grid-overlay.git"
+	},
+	"eslintConfig": {
+		"env": {
+			"es6": true,
+			"browser": true
+		},
+		"plugins": [
+			"compat"
+		],
+		"settings": {
+			"targets": [
+				"chrome >= 50",
+				"firefox",
+				"edge",
+				"safari >= 9"
+			],
+			"coverage": false,
+			"compiler": "babel"
+		},
+		"parserOptions": {
+			"sourceType": "module",
+			"ecmaVersion": 2017
+		}
+	},
+	"browserslist": [
+		"last 2 versions",
+		"> 2%",
+		"not dead"
+	],
+	"keywords": [
+		"javascript",
+		"grid",
+		"css",
+		"debug"
+	],
+	"author": "Mattias Hinderson",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/hinderson/debug-grid-overlay/issues"
+	},
+	"homepage": "https://github.com/hinderson/debug-grid-overlay#readme",
+	"scripts": {
+		"build": "microbundle src/index.js",
+		"watch": "microbundle watch src/index.js"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.2.2",
+		"@babel/preset-env": "^7.3.1",
+		"babel-loader": "^8.0.5",
+		"babel-preset-env": "^1.7.0",
+		"eslint": "^5.13.0",
+		"eslint-plugin-compat": "^2.7.0",
+		"microbundle": "^0.11.0",
+		"webpack": "^4.29.3",
+		"webpack-cli": "^3.2.3"
+	}
 }

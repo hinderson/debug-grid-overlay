@@ -19,6 +19,20 @@ function EventEmitter() {
 	};
 }
 
+const getCssBlock = (selector, property, values) => {
+	const block = (value) => `.${selector} { ${property}: ${ value }; }`;
+	if (typeof values === 'object') {
+		return Object.keys(values).map(key => {
+			if (key === '&') {
+				return block(values[key]);
+			} else {
+				return `@media screen and (${key}) { ${block(values[key])} }`;
+			}
+		}).join('');
+	}
+	return block(values);
+};
+
 export default function debugGrid({
 	columns = 12,
 	maxWidth = null,
@@ -33,7 +47,7 @@ export default function debugGrid({
 	const grid = 'g' + Math.random().toString(36).substr(2, 9);
 	const gridInner = 'i' + Math.random().toString(36).substr(2, 9);
 
-	const css = `
+	let css = `
 		.${grid} {
 			position: absolute;
 			top: 0;
@@ -46,16 +60,13 @@ export default function debugGrid({
 
 		.${gridInner} {
 			display: grid;
-			grid-template-columns: repeat(${columns}, ${columnWidth});
-			column-gap: ${gutterWidth};
 			height: 100%;
 			background-color: rgba(14, 109, 14, 0.1);
 			margin-left: auto;
 			margin-right: auto;
 			box-sizing: content-box;
-			${maxWidth ? `max-width: ${maxWidth};` : ''}
-			${marginsWidth ? `padding-left: ${marginsWidth};` : ''}
-			${marginsWidth ? `padding-right: ${marginsWidth};` : ''}
+			grid-template-columns: repeat(${columns}, ${columnWidth});
+			column-gap: ${gutterWidth};
 		}
 
 		.${gridInner}::before {
@@ -86,6 +97,27 @@ export default function debugGrid({
 			background-color: rgba(255, 192, 203, 0.2);
 		}
 	`;
+
+	css += Object.entries(arguments[0]).map(([key, value]) => {
+		const cases = {
+			marginsWidth() {
+				return [
+					getCssBlock(gridInner, 'padding-left', value),
+					getCssBlock(gridInner, 'padding-right', value),
+				].join('');
+			},
+			maxWidth() {
+				return getCssBlock(gridInner, 'max-width', value);
+			},
+			gutterWidth() {
+				return getCssBlock(gridInner, 'column-gap', value);
+			},
+			default() {
+				return '';
+			},
+		};
+		return (cases[key] || cases['default'])();
+	}).join('');
 
 	const styleTag = document.createElement('style');
 	styleTag.id = 'debug-grid-overlay';
