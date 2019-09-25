@@ -146,6 +146,7 @@ export default function debugGrid({
 	}
 
 	window.addEventListener('keydown', e => {
+		if (document.activeElement.tagName === 'INPUT') return;
 		if (event.keyCode === keyCode) {
 			toggle();
 		}
