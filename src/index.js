@@ -126,7 +126,7 @@ export default function debugGrid({
 	styleTag.innerHTML = css.replace(/\n/g, '').replace(/\s\s+/g, ' ');
 
 	const overlay = node(`
-		<div class="${grid} .debug-grid-overlay">
+		<div class="${grid} debug-grid-overlay">
 			<div class="${gridInner}">
 				${Array.from({length: columns}, () => `<div></div>`).join('')}
 			</div>
